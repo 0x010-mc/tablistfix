@@ -1,6 +1,7 @@
 package me.nullx.tablistfix;
 
 import net.labymod.api.LabyModAddon;
+import net.labymod.main.LabyMod;
 import net.labymod.settings.elements.SettingsElement;
 import net.minecraft.client.Minecraft;
 import net.minecraft.scoreboard.ScorePlayerTeam;
@@ -8,13 +9,15 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.List;
 
 public class TabListFix extends LabyModAddon {
 
-    private Field registeredName = ScorePlayerTeam.class.getDeclaredField("b");
+    private Field registeredName;
 
     public TabListFix() throws NoSuchFieldException {
+        registeredName = ScorePlayerTeam.class.getDeclaredField(LabyMod.isForge() ? "field_96675_b" : "b");
         registeredName.setAccessible(true);
     }
 
